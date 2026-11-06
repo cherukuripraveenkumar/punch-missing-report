@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Punch Missing Report</title>
+  <meta name="theme-color" content="#1f3a5f">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <!-- Libraries for making PDF and Word/Excel files (kept inside the project, no internet needed) -->
+  <script defer src="lib/pdf-lib.min.js"></script>
+  <script defer src="lib/jszip.min.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+
+  <header class="appbar">
+    <h1>Punch Missing Report</h1>
+    <p id="projectLine"></p>
+  </header>
+
+  <nav class="tabs">
+    <button type="button" data-tab="add" class="on">➕ Add</button>
+    <button type="button" data-tab="report">📄 Report</button>
+    <button type="button" data-tab="settings">⚙️ Settings</button>
+  </nav>
+
+  <main>
+
+    <!-- ================= TAB 1: ADD ENTRY ================= -->
+    <section id="tab-add" class="tab on">
+      <h2 id="formTitle">Add a missed punch</h2>
+
+      <div class="step">
+        <label for="f-date"><span class="num">1</span> Date</label>
+        <input type="date" id="f-date">
+      </div>
+
+      <div class="step">
+        <label for="f-ebill"><span class="num">2</span> Guard's E-bill No.</label>
+        <input id="f-ebill" list="dl-ebill" inputmode="numeric" autocomplete="off" placeholder="Example: 35031">
+        <p class="help">For a known guard, the name, shift and place fill in by themselves.</p>
+
+        <div class="guardbox">
+          <label for="f-name">Guard name</label>
+          <input id="f-name" list="dl-name" autocomplete="off" placeholder="Guard name">
+
+          <span class="sublabel">Shift</span>
+          <div class="choice" id="c-shift">
+            <button type="button" data-v="Day">☀️ Day</button>
+            <button type="button" data-v="Night">🌙 Night</button>
+          </div>
+
+          <label for="f-loc">Deployed location</label>
+          <input id="f-loc" list="dl-loc" autocomplete="off" placeholder="Example: Gate 2">
+        </div>
+      </div>
+
+      <div class="step">
+        <span class="steplabel"><span class="num">3</span> What is missing?</span>
+        <div class="choice" id="c-type">
+          <button type="button" data-v="out">Out punch<br>missing</button>
+          <button type="button" data-v="in">In punch<br>missing</button>
+          <button type="button" data-v="delay">Came<br>late</button>
+        </div>
+      </div>
+
+      <div class="step">
+        <span class="steplabel"><span class="num">4</span> Time</span>
+        <div class="times">
+          <div class="timebox" id="w-in">
+            <label for="f-in">In time</label>
+            <input type="time" id="f-in">
+            <div class="missing">Missing</div>
+          </div>
+          <div class="timebox" id="w-out">
+            <label for="f-out">Out time</label>
+            <input type="time" id="f-out">
+            <div class="missing">Missing</div>
+          </div>
+        </div>
+        <label for="f-remark" class="small">Remarks (filled automatically)</label>
+        <input id="f-remark">
+      </div>
+
+      <p class="error" id="f-err" role="alert"></p>
+      <button type="button" class="big green" id="btn-save">✓ Save Entry</button>
+      <button type="button" class="big plain" id="btn-cancel" hidden>Cancel</button>
+    </section>
+
+    <!-- ================= TAB 2: REPORT ================= -->
+    <section id="tab-report" class="tab">
+      <h2>Monthly report</h2>
+      <label for="r-month">Choose month</label>
+      <select id="r-month"></select>
+
+      <div class="buttons">
+        <button type="button" class="big blue" data-dl="pdf">⬇️ Download PDF</button>
+        <button type="button" class="big whatsapp" id="btn-share" hidden>📤 Send PDF on WhatsApp</button>
+        <div class="two">
+          <button type="button" class="mid" data-dl="docx">Word file</button>
+          <button type="button" class="mid" data-dl="xlsx">Excel file</button>
+        </div>
+      </div>
+
+      <p class="count" id="r-count"></p>
+      <div id="r-list"></div>
+    </section>
+
+    <!-- ================= TAB 3: SETTINGS ================= -->
+    <section id="tab-settings" class="tab">
+      <h2>Settings</h2>
+
+      <div class="card">
+        <label for="s-project">Project code &amp; name</label>
+        <input id="s-project">
+        <button type="button" class="mid" id="btn-project">Save project name</button>
+      </div>
+
+      <div class="card">
+        <h3>Backup</h3>
+        <p class="help">Entries are saved on this phone only. Save a backup file once a month, so nothing is lost if the phone is changed.</p>
+        <button type="button" class="mid" id="btn-backup">Save backup file</button>
+        <label class="mid filebtn">Restore from backup file
+          <input type="file" id="f-restore" accept=".json,application/json" hidden>
+        </label>
+      </div>
+
+      <div class="card">
+        <h3>Guards</h3>
+        <p class="help">A new guard is added here automatically the first time you save an entry for them.</p>
+        <div id="s-guards"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="toast" role="status"></div>
+  <datalist id="dl-ebill"></datalist>
+  <datalist id="dl-name"></datalist>
+  <datalist id="dl-loc"></datalist>
+</body>
+</html>

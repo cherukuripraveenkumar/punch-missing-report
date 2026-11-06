@@ -1,0 +1,150 @@
+/* Big, simple, phone-friendly design */
+:root {
+  --bg: #f2f4f7;
+  --card: #ffffff;
+  --ink: #18212d;
+  --muted: #5d6877;
+  --line: #d6dbe2;
+  --blue: #1f3a5f;
+  --green: #1e7f4f;
+  --red: #b42318;
+  --wa: #128c4b;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 17px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ---------- Top bar & tabs ---------- */
+.appbar { background: var(--blue); color: #fff; padding: 16px 18px 12px; }
+.appbar h1 { margin: 0; font-size: 22px; }
+.appbar p { margin: 2px 0 0; opacity: .8; font-size: 14px; }
+
+.tabs {
+  display: flex; position: sticky; top: 0; z-index: 5;
+  background: var(--blue); padding: 0 8px 8px; gap: 6px;
+}
+.tabs button {
+  flex: 1; border: 0; border-radius: 12px; padding: 12px 4px;
+  font: inherit; font-size: 16px; font-weight: 600;
+  background: rgba(255,255,255,.12); color: #fff; cursor: pointer;
+}
+.tabs button.on { background: #fff; color: var(--blue); }
+
+main { max-width: 640px; margin: 0 auto; padding: 16px 14px 90px; }
+.tab { display: none; }
+.tab.on { display: block; }
+h2 { margin: 4px 0 14px; font-size: 21px; }
+h3 { margin: 0 0 6px; font-size: 18px; }
+
+/* ---------- Form ---------- */
+.step, .card {
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: 16px; padding: 16px; margin-bottom: 14px;
+}
+label, .steplabel, .sublabel {
+  display: block; font-weight: 700; margin-bottom: 8px;
+}
+.guardbox label, .sublabel, label.small {
+  font-weight: 600; font-size: 15px; color: var(--muted); margin: 14px 0 6px;
+}
+.num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--blue); color: #fff; font-size: 15px; margin-right: 6px;
+}
+input, select {
+  width: 100%; font: inherit; font-size: 18px; color: var(--ink);
+  padding: 12px 14px; min-height: 52px;
+  border: 1.5px solid var(--line); border-radius: 12px; background: #fff;
+}
+input:focus, select:focus { outline: 3px solid #9db6d6; border-color: var(--blue); }
+.help { color: var(--muted); font-size: 14.5px; margin: 8px 0 0; }
+
+.choice { display: flex; gap: 8px; }
+.choice button {
+  flex: 1; min-height: 58px; padding: 8px 4px;
+  font: inherit; font-size: 16px; font-weight: 600; line-height: 1.25;
+  border: 1.5px solid var(--line); border-radius: 12px;
+  background: #fff; color: var(--ink); cursor: pointer;
+}
+.choice button.on { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+.times { display: flex; gap: 10px; }
+.timebox { flex: 1; }
+.timebox label { font-weight: 600; font-size: 15px; color: var(--muted); }
+.missing {
+  display: none; min-height: 52px; align-items: center; justify-content: center;
+  border: 1.5px dashed #c5ccd5; border-radius: 12px;
+  color: var(--red); font-weight: 700; background: #fafbfc;
+}
+.timebox.is-missing input { display: none; }
+.timebox.is-missing .missing { display: flex; }
+
+.error { color: var(--red); font-weight: 600; margin: 0 0 12px; }
+.error:empty { display: none; }
+
+/* ---------- Buttons ---------- */
+.big, .mid {
+  display: block; width: 100%; border-radius: 14px; cursor: pointer;
+  font: inherit; font-weight: 700; text-align: center;
+}
+.big { min-height: 58px; font-size: 19px; border: 0; margin-bottom: 10px; }
+.mid {
+  min-height: 50px; font-size: 16px; padding: 12px;
+  background: #fff; color: var(--blue); border: 1.5px solid var(--blue); margin-top: 10px;
+}
+.green { background: var(--green); color: #fff; }
+.blue { background: var(--blue); color: #fff; }
+.whatsapp { background: var(--wa); color: #fff; }
+.plain { background: #fff; color: var(--ink); border: 1.5px solid var(--line); }
+.big:disabled, .mid:disabled { opacity: .5; cursor: default; }
+.filebtn { font-weight: 700; color: var(--blue); margin-bottom: 0; }
+
+.buttons { margin: 16px 0 6px; }
+.two { display: flex; gap: 10px; }
+.two .mid { margin-top: 0; }
+
+/* ---------- Report list ---------- */
+.count { color: var(--muted); font-weight: 600; }
+.entry {
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+  padding: 12px 14px; margin-bottom: 10px;
+}
+.entry .top { display: flex; justify-content: space-between; gap: 8px; font-weight: 700; }
+.entry .date { color: var(--muted); font-weight: 600; white-space: nowrap; }
+.entry .info { color: var(--muted); font-size: 15.5px; margin-top: 4px; }
+.entry .miss { color: var(--red); font-weight: 700; }
+.entry .acts { display: flex; gap: 8px; margin-top: 10px; }
+.entry .acts button {
+  flex: 1; min-height: 42px; border-radius: 10px; font: inherit; font-size: 15px; font-weight: 600;
+  background: #fff; border: 1.5px solid var(--line); color: var(--ink); cursor: pointer;
+}
+.entry .acts .del { color: var(--red); }
+.empty { text-align: center; color: var(--muted); padding: 30px 10px; }
+
+.guard {
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  padding: 10px 0; border-top: 1px solid var(--line);
+}
+.guard small { color: var(--muted); display: block; }
+.guard button {
+  border: 1.5px solid var(--line); background: #fff; color: var(--red);
+  border-radius: 10px; padding: 8px 12px; font: inherit; font-size: 14px; cursor: pointer;
+}
+
+/* ---------- Message at bottom ---------- */
+#toast {
+  position: fixed; left: 50%; bottom: 20px; transform: translate(-50%, 20px);
+  background: var(--green); color: #fff; font-weight: 700;
+  padding: 14px 20px; border-radius: 14px; max-width: 92vw; text-align: center;
+  opacity: 0; pointer-events: none; transition: .25s; z-index: 10;
+}
+#toast.show { opacity: 1; transform: translate(-50%, 0); }
+#toast.bad { background: var(--red); }

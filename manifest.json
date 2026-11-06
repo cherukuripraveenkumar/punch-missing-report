@@ -1,0 +1,11 @@
+{
+  "name": "Punch Missing Report",
+  "short_name": "Punch Report",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f2f4f7",
+  "theme_color": "#1f3a5f",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
